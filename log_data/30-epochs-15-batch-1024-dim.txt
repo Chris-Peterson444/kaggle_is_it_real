@@ -1,0 +1,90 @@
+Epoch: 01 | Time: 0m 3s
+	Train Loss: 0.689 | Train PPL:   1.991
+	 Val. Loss: 0.677 |  Val. PPL:   1.968
+Epoch: 02 | Time: 0m 3s
+	Train Loss: 0.722 | Train PPL:   2.058
+	 Val. Loss: 0.720 |  Val. PPL:   2.054
+Epoch: 03 | Time: 0m 3s
+	Train Loss: 0.652 | Train PPL:   1.920
+	 Val. Loss: 0.554 |  Val. PPL:   1.740
+Epoch: 04 | Time: 0m 3s
+	Train Loss: 0.555 | Train PPL:   1.741
+	 Val. Loss: 0.491 |  Val. PPL:   1.634
+Epoch: 05 | Time: 0m 3s
+	Train Loss: 0.511 | Train PPL:   1.667
+	 Val. Loss: 0.481 |  Val. PPL:   1.617
+Epoch: 06 | Time: 0m 3s
+	Train Loss: 0.505 | Train PPL:   1.656
+	 Val. Loss: 0.516 |  Val. PPL:   1.675
+Epoch: 07 | Time: 0m 3s
+	Train Loss: 0.457 | Train PPL:   1.579
+	 Val. Loss: 0.484 |  Val. PPL:   1.623
+Epoch: 08 | Time: 0m 3s
+	Train Loss: 0.434 | Train PPL:   1.543
+	 Val. Loss: 0.538 |  Val. PPL:   1.712
+Epoch: 09 | Time: 0m 3s
+	Train Loss: 0.409 | Train PPL:   1.505
+	 Val. Loss: 0.474 |  Val. PPL:   1.607
+Epoch: 10 | Time: 0m 3s
+	Train Loss: 0.396 | Train PPL:   1.486
+	 Val. Loss: 0.482 |  Val. PPL:   1.620
+Epoch: 11 | Time: 0m 3s
+	Train Loss: 0.360 | Train PPL:   1.433
+	 Val. Loss: 0.481 |  Val. PPL:   1.618
+Epoch: 12 | Time: 0m 3s
+	Train Loss: 0.347 | Train PPL:   1.414
+	 Val. Loss: 0.481 |  Val. PPL:   1.618
+Epoch: 13 | Time: 0m 3s
+	Train Loss: 0.309 | Train PPL:   1.362
+	 Val. Loss: 0.586 |  Val. PPL:   1.797
+Epoch: 14 | Time: 0m 3s
+	Train Loss: 0.301 | Train PPL:   1.351
+	 Val. Loss: 0.469 |  Val. PPL:   1.599
+Epoch: 15 | Time: 0m 3s
+	Train Loss: 0.276 | Train PPL:   1.318
+	 Val. Loss: 0.543 |  Val. PPL:   1.721
+Epoch: 16 | Time: 0m 3s
+	Train Loss: 0.257 | Train PPL:   1.293
+	 Val. Loss: 0.548 |  Val. PPL:   1.729
+Epoch: 17 | Time: 0m 3s
+	Train Loss: 0.245 | Train PPL:   1.277
+	 Val. Loss: 0.653 |  Val. PPL:   1.921
+Epoch: 18 | Time: 0m 3s
+	Train Loss: 0.222 | Train PPL:   1.248
+	 Val. Loss: 0.558 |  Val. PPL:   1.747
+Epoch: 19 | Time: 0m 3s
+	Train Loss: 0.198 | Train PPL:   1.219
+	 Val. Loss: 0.680 |  Val. PPL:   1.974
+Epoch: 20 | Time: 0m 3s
+	Train Loss: 0.197 | Train PPL:   1.217
+	 Val. Loss: 0.576 |  Val. PPL:   1.779
+Epoch: 21 | Time: 0m 3s
+	Train Loss: 0.178 | Train PPL:   1.195
+	 Val. Loss: 0.627 |  Val. PPL:   1.871
+Epoch: 22 | Time: 0m 3s
+	Train Loss: 0.181 | Train PPL:   1.198
+	 Val. Loss: 0.605 |  Val. PPL:   1.830
+Epoch: 23 | Time: 0m 3s
+	Train Loss: 0.166 | Train PPL:   1.180
+	 Val. Loss: 0.752 |  Val. PPL:   2.122
+Epoch: 24 | Time: 0m 3s
+	Train Loss: 0.152 | Train PPL:   1.164
+	 Val. Loss: 0.760 |  Val. PPL:   2.139
+Epoch: 25 | Time: 0m 3s
+	Train Loss: 0.140 | Train PPL:   1.150
+	 Val. Loss: 0.758 |  Val. PPL:   2.134
+Epoch: 26 | Time: 0m 3s
+	Train Loss: 0.140 | Train PPL:   1.151
+	 Val. Loss: 0.768 |  Val. PPL:   2.155
+Epoch: 27 | Time: 0m 3s
+	Train Loss: 0.140 | Train PPL:   1.150
+	 Val. Loss: 0.611 |  Val. PPL:   1.842
+Epoch: 28 | Time: 0m 3s
+	Train Loss: 0.138 | Train PPL:   1.148
+	 Val. Loss: 0.725 |  Val. PPL:   2.065
+Epoch: 29 | Time: 0m 3s
+	Train Loss: 0.118 | Train PPL:   1.126
+	 Val. Loss: 0.826 |  Val. PPL:   2.284
+Epoch: 30 | Time: 0m 3s
+	Train Loss: 0.112 | Train PPL:   1.119
+	 Val. Loss: 0.688 |  Val. PPL:   1.990

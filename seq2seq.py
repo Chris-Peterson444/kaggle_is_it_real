@@ -400,7 +400,7 @@ for batch_size in BATCH_SIZES:
     for inner_dim in INNER_DIM:
 
         BATCH_SIZE = batch_size
-        INTERMEDIATE_DIM = inner_dim
+        INTERMEDIATE_DIM = int(inner_dim)
         N_EPOCHS = 30
 
         train_iterator, valid_iterator = BucketIterator.splits(
