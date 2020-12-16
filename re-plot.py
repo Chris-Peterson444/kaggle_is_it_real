@@ -23,12 +23,12 @@ def getLoss(file_name):
 	s = s.split(', ')
 	s = s[:-1]
 	for v in s:
-		validation_loss.append(v)
+		validation_loss.append(float(v))
 	s = f.readline()
 	s = s.split(', ')
 	s = s[:-1]
 	for v in s:
-		training_loss.append(v)
+		training_loss.append(float(v))
 
 files = [f for f in listdir("slang/loss_data") if isfile(join("slang/loss_data", f))]
 
