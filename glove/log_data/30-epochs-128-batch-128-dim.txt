@@ -1,0 +1,15 @@
+Epoch: 01 | Time: 0m 1s
+	Train Loss: 0.685 | Train PPL:   1.983
+	 Val. Loss: 0.676 |  Val. PPL:   1.965
+Epoch: 02 | Time: 0m 1s
+	Train Loss: 0.649 | Train PPL:   1.913
+	 Val. Loss: 0.511 |  Val. PPL:   1.666
+Epoch: 03 | Time: 0m 1s
+	Train Loss: 0.555 | Train PPL:   1.741
+	 Val. Loss: 0.468 |  Val. PPL:   1.597
+Epoch: 04 | Time: 0m 1s
+	Train Loss: 0.537 | Train PPL:   1.711
+	 Val. Loss: 0.465 |  Val. PPL:   1.592
+Epoch: 05 | Time: 0m 1s
+	Train Loss: 0.500 | Train PPL:   1.648
+	 Val. Loss: 0.510 |  Val. PPL:   1.666
