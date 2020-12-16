@@ -482,6 +482,7 @@ for batch_size in BATCH_SIZES:
         plt.ylabel('loss')
         plt.legend(['valid','train'], loc="upper right")
         plt.savefig("loss_plots/"+file_name+'.png')
+        plt.clf() # clear plot for next iteration
 
         #save loss in easily readable way
         f = open("loss_data/"+file_name+".txt", "w")
