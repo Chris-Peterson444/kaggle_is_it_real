@@ -22,7 +22,7 @@ inner_dim = []
 unique_batches = []
 unique_dim = []
 
-embed = 'slang'
+embed = 'glove'
 location = "new/" + embed
 
 
@@ -83,6 +83,7 @@ f1_table = np.zeros((a,b))
 for i in range(len(file_names)):
 	f1_table[sorted_batch.index(batch_size[i]),sorted_dim.index(inner_dim[i])] = f1[i]
 # print(f1_table)
+# f1_table = (f1_table-f1_table.mean())/f1_table.std()
 ax = sns.heatmap(f1_table, cmap=sns.cm.rocket_r, xticklabels=sorted_dim, yticklabels=sorted_batch) #, yticklabels=sorted_dim, xticklabels=sorted_batch)
 plt.xlabel('hidden layer dimension')
 plt.ylabel('batch size')
@@ -112,6 +113,11 @@ plt.title(embed+": recall heatmap")
 plt.savefig(location+'/'+embed+'-recall-heatmap.png')
 plt.clf()
 
+
+print('Best f1 score for '+embed,np.max(np.array(f1)))
+name = np.argmax(np.array(f1))
+print(name)
+print(file_names[name])
 
 # 	for j in range(len(inner_dim)):
 # 		f1_table[i,j] = f1_
