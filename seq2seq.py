@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 
 
 # Where to save
-location = 'new/glove/'
+location = 'new/slang/'
 
 # Defining some of the hyperparameters here so I can use them in the check
 ENC_EMB_DIM = 300

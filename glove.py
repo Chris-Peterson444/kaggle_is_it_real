@@ -20,6 +20,9 @@ import pandas as pd
 # from jupyterplot import ProgressPlot
 import matplotlib.pyplot as plt
 
+#where to save
+location = "new/glove"
+
 # Defining some of the hyperparameters here so I can use them in the check
 ENC_EMB_DIM = 300
 HID_DIM = 512
@@ -183,7 +186,7 @@ def analogy(embeddings, word1, word2, word3, n=5):
 # In[13]:
 
 
-TEXT.build_vocab(train_data,
+TEXT.build_vocab(twitter_dataset,
                 vectors = loaded_emb)
 LABEL.build_vocab(train_data)
 
@@ -391,110 +394,110 @@ INPUT_DIM = len(TEXT.vocab)
 OUTPUT_DIM =  len(LABEL.vocab) - 2
 # Loop time
 
-# BATCH_SIZES = [1,2,3,5,10,15,20,25,50,52,64,128,256,512]
-# INNER_DIM = [FC_IN_DIM/2, FC_IN_DIM/4, 256]
-config = [(512,512)]
+BATCH_SIZES = [3,4,5,10,15,20,25,50,52,64,128,256]
+INNER_DIM = [256,128,64,32]
 
-for batch_size, inner_dim in config:
+for batch_size in BATCH_SIZES:
+    for inner_dim in INNER_DIM:
 
-    BATCH_SIZE = batch_size
-    INTERMEDIATE_DIM = int(inner_dim)
-    N_EPOCHS = 60
+        BATCH_SIZE = batch_size
+        INTERMEDIATE_DIM = int(inner_dim)
+        N_EPOCHS = 60
 
-    train_iterator, valid_iterator = BucketIterator.splits(
-    (train_data, valid_data), 
-        batch_size = BATCH_SIZE,
-        device = device,
-        sort_key = lambda x: len(x.text),
-        sort_within_batch=False)
+        train_iterator, valid_iterator = BucketIterator.splits(
+        (train_data, valid_data), 
+            batch_size = BATCH_SIZE,
+            device = device,
+            sort_key = lambda x: len(x.text),
+            sort_within_batch=False)
 
 
-    enc = Encoder(INPUT_DIM, ENC_EMB_DIM, HID_DIM, N_LAYERS, ENC_DROPOUT)
-    fc = FullyConnected(FC_IN_DIM,INTERMEDIATE_DIM,OUTPUT_DIM)
+        enc = Encoder(INPUT_DIM, ENC_EMB_DIM, HID_DIM, N_LAYERS, ENC_DROPOUT)
+        fc = FullyConnected(FC_IN_DIM,INTERMEDIATE_DIM,OUTPUT_DIM)
 
-    embed_weights = TEXT.vocab.vectors
-    enc.embedding.weight.data.copy_(embed_weights)
-    UNK_IDX = TEXT.vocab.stoi[TEXT.unk_token]
-    PAD_IDX = TEXT.vocab.stoi[TEXT.pad_token]
+        embed_weights = TEXT.vocab.vectors
+        enc.embedding.weight.data.copy_(embed_weights)
+        UNK_IDX = TEXT.vocab.stoi[TEXT.unk_token]
+        PAD_IDX = TEXT.vocab.stoi[TEXT.pad_token]
 
-    enc.embedding.weight.data[UNK_IDX] = torch.zeros(ENC_EMB_DIM)
-    enc.embedding.weight.data[PAD_IDX] = torch.zeros(ENC_EMB_DIM)
+        enc.embedding.weight.data[UNK_IDX] = torch.zeros(ENC_EMB_DIM)
+        enc.embedding.weight.data[PAD_IDX] = torch.zeros(ENC_EMB_DIM)
 
-    #freeze embeddings
-    enc.embedding.weight.requires_grad = False
+        #freeze embeddings
+        enc.embedding.weight.requires_grad = False
 
-    model = CustomModel(enc,fc, device ).to(device)
+        model = CustomModel(enc,fc, device ).to(device)
 
-    print(f'The model has {count_parameters(model):,} trainable parameters')
+        print(f'The model has {count_parameters(model):,} trainable parameters')
 
-    optimizer = optim.Adam(model.parameters())
+        optimizer = optim.Adam(model.parameters())
 
-    criterion = nn.CrossEntropyLoss().to(device)
-   
-    file_name = str(N_EPOCHS)+"-epochs-"+str(BATCH_SIZE)+"-batch-"+str(INTERMEDIATE_DIM)+"-dim"
-    training_loss_data = []
-    validation_loss_data = []
-    CLIP = 1
-    f = open("glove/log_data/"+file_name+".txt","w")
-    best_valid_loss = float('inf')
-    print("running "+file_name)
+        criterion = nn.CrossEntropyLoss().to(device)
+       
+        file_name = str(N_EPOCHS)+"-epochs-"+str(BATCH_SIZE)+"-batch-"+str(INTERMEDIATE_DIM)+"-dim"
+        training_loss_data = []
+        validation_loss_data = []
+        CLIP = 1
+        f = open(location+"/log_data/"+file_name+".txt","w")
+        best_valid_loss = float('inf')
+        print("running "+file_name)
 
-    # Train
+        # Train
 
-    for epoch in range(N_EPOCHS):
-        
-        start_time = time.time()
-        
-        train_loss = train(model, train_iterator, optimizer, criterion, CLIP)
-        valid_loss = evaluate(model, valid_iterator, criterion)
-        
-        end_time = time.time()
-        
-        epoch_mins, epoch_secs = epoch_time(start_time, end_time)
-        
-        validation_loss_data.append(valid_loss)
-        training_loss_data.append(train_loss)
-        # pp.update([[train_loss,valid_loss]])
-        
-        #save model
+        for epoch in range(N_EPOCHS):
+            
+            start_time = time.time()
+            
+            train_loss = train(model, train_iterator, optimizer, criterion, CLIP)
+            valid_loss = evaluate(model, valid_iterator, criterion)
+            
+            end_time = time.time()
+            
+            epoch_mins, epoch_secs = epoch_time(start_time, end_time)
+            
+            validation_loss_data.append(valid_loss)
+            training_loss_data.append(train_loss)
+            # pp.update([[train_loss,valid_loss]])
+            
+            #save model
 
-        if valid_loss < best_valid_loss:
-            best_valid_loss = valid_loss
-            torch.save(model.state_dict(), "glove/models/"+file_name+'.pt')
-        
-        #save log info
+            if valid_loss < best_valid_loss:
+                best_valid_loss = valid_loss
+                torch.save(model.state_dict(), location+"/models/"+file_name+'.pt')
+            
+            #save log info
 
-        f.write(f'Epoch: {epoch+1:02} | Time: {epoch_mins}m {epoch_secs}s\n')
-        f.write(f'\tTrain Loss: {train_loss:.3f} | Train PPL: {math.exp(train_loss):7.3f}\n')
-        f.write(f'\t Val. Loss: {valid_loss:.3f} |  Val. PPL: {math.exp(valid_loss):7.3f}\n')
-    f.close()
+            f.write(f'Epoch: {epoch+1:02} | Time: {epoch_mins}m {epoch_secs}s\n')
+            f.write(f'\tTrain Loss: {train_loss:.3f} | Train PPL: {math.exp(train_loss):7.3f}\n')
+            f.write(f'\t Val. Loss: {valid_loss:.3f} |  Val. PPL: {math.exp(valid_loss):7.3f}\n')
+        f.close()
 
-    # Save plot
-    # print(training_loss_data)
-    x_data = []
-    for v in range(N_EPOCHS):
-        x_data.append(v+1)
-    plt.plot(x_data,validation_loss_data)
-    plt.plot(x_data,training_loss_data)
-    plt.xlabel('iterations')
-    plt.ylabel('loss')
-    plt.legend(['valid','train'], loc="upper right")
-    plt.savefig("glove/loss_plots/"+file_name+'.png')
-    plt.clf() # clear plot for next iteration
+        # Save plot
+        # print(training_loss_data)
+        x_data = []
+        for v in range(N_EPOCHS):
+            x_data.append(v+1)
+        plt.plot(x_data,validation_loss_data)
+        plt.plot(x_data,training_loss_data)
+        plt.xlabel('iterations')
+        plt.ylabel('loss')
+        plt.legend(['valid','train'], loc="upper right")
+        plt.savefig(location+"/loss_plots/"+file_name+'.png')
+        plt.clf() # clear plot for next iteration
 
-    #save loss in easily readable way
-    f = open("glove/loss_data/"+file_name+".txt", "w")
-    # write validation loss as an array
-    for loss in validation_loss_data:
-        f.write(f'{loss:.3f}')
-        f.write(', ')
-    f.write('\n')
-    # write train loss
-    for loss in training_loss_data:
-        f.write(f'{loss:.3f}')
-        f.write(', ')
-    f.write('\n')
-    f.close()
+        #save loss in easily readable way
+        f = open(location+"/loss_data/"+file_name+".txt", "w")
+        # write validation loss as an array
+        for loss in validation_loss_data:
+            f.write(f'{loss:.3f}')
+            f.write(', ')
+        f.write('\n')
+        # write train loss
+        for loss in training_loss_data:
+            f.write(f'{loss:.3f}')
+            f.write(', ')
+        f.write('\n')
+        f.close()
 
 
 
