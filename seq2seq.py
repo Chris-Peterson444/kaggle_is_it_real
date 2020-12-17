@@ -20,6 +20,10 @@ import pandas as pd
 # from jupyterplot import ProgressPlot
 import matplotlib.pyplot as plt
 
+
+# Where to save
+location = 'new/glove/'
+
 # Defining some of the hyperparameters here so I can use them in the check
 ENC_EMB_DIM = 300
 HID_DIM = 512
@@ -185,7 +189,7 @@ def analogy(embeddings, word1, word2, word3, n=5):
 # In[13]:
 
 
-TEXT.build_vocab(train_data,
+TEXT.build_vocab(twitter_dataset,
                 vectors = slang_emb)
 LABEL.build_vocab(train_data)
 
@@ -393,8 +397,8 @@ INPUT_DIM = len(TEXT.vocab)
 OUTPUT_DIM =  len(LABEL.vocab) - 2
 # Loop time
 
-BATCH_SIZES = [1,2,3,5,10,15,20,25,50,52,64,128,256,512]
-INNER_DIM = [FC_IN_DIM/2, FC_IN_DIM/4, 256]
+BATCH_SIZES = [3,4,5,10,15,20,25,50,52,64,128,256,512]
+INNER_DIM = [256,128,64,32]
 
 for batch_size in BATCH_SIZES:
     for inner_dim in INNER_DIM:
@@ -437,7 +441,7 @@ for batch_size in BATCH_SIZES:
         training_loss_data = []
         validation_loss_data = []
         CLIP = 1
-        f = open("log_data/"+file_name+".txt","w")
+        f = open(location+"log_data/"+file_name+".txt","w")
         best_valid_loss = float('inf')
         print("running "+file_name)
 
@@ -462,7 +466,7 @@ for batch_size in BATCH_SIZES:
 
             if valid_loss < best_valid_loss:
                 best_valid_loss = valid_loss
-                torch.save(model.state_dict(), "models/"+file_name+'.pt')
+                torch.save(model.state_dict(), location+"models/"+file_name+'.pt')
             
             #save log info
 
@@ -481,11 +485,11 @@ for batch_size in BATCH_SIZES:
         plt.xlabel('iterations')
         plt.ylabel('loss')
         plt.legend(['valid','train'], loc="upper right")
-        plt.savefig("loss_plots/"+file_name+'.png')
+        plt.savefig(location+"loss_plots/"+file_name+'.png')
         plt.clf() # clear plot for next iteration
 
         #save loss in easily readable way
-        f = open("loss_data/"+file_name+".txt", "w")
+        f = open(location+"loss_data/"+file_name+".txt", "w")
         # write validation loss as an array
         for loss in validation_loss_data:
             f.write(f'{loss:.3f}')
