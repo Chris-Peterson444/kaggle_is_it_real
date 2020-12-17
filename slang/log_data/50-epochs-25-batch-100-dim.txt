@@ -1,0 +1,3 @@
+Epoch: 01 | Time: 0m 2s
+	Train Loss: 0.683 | Train PPL:   1.981
+	 Val. Loss: 0.668 |  Val. PPL:   1.950

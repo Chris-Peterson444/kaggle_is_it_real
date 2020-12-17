@@ -394,15 +394,15 @@ INPUT_DIM = len(TEXT.vocab)
 OUTPUT_DIM =  len(LABEL.vocab) - 2
 # Loop time
 
-BATCH_SIZES = [3,4,5,10,15,20,25,50,52,64,128,256]
-INNER_DIM = [256,128,64,32]
+BATCH_SIZES = [56] #[3,4,5,10,15,20,25,50,52,64,128,256]
+INNER_DIM = [32]#[256,128,64,32]
 
 for batch_size in BATCH_SIZES:
     for inner_dim in INNER_DIM:
 
         BATCH_SIZE = batch_size
         INTERMEDIATE_DIM = int(inner_dim)
-        N_EPOCHS = 60
+        N_EPOCHS = 30
 
         train_iterator, valid_iterator = BucketIterator.splits(
         (train_data, valid_data), 

@@ -14,7 +14,7 @@ training_loss = []
 min_file = {}
 top_number = 5
 
-run = 'slang'
+run = 'new/slang'
 
 def getLoss(file_name):
 	global validation_loss, training_loss
